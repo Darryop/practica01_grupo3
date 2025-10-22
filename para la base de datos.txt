@@ -1,0 +1,33 @@
+-- 1. Eliminar BD anterior si existe
+DROP DATABASE IF EXISTS practica;
+
+-- 2. Crear la base de datos SIN tilde
+CREATE DATABASE practica;
+USE practica;
+
+-- 3. Crear usuario con todos los privilegios
+DROP USER IF EXISTS 'usuario_practica'@'localhost';
+CREATE USER 'usuario_practica'@'localhost' IDENTIFIED BY 'la_Clave';
+GRANT ALL PRIVILEGES ON practica.* TO 'usuario_practica'@'localhost';
+FLUSH PRIVILEGES;
+
+-- 4. Crear tabla arbol con al menos 5 columnas
+CREATE TABLE arbol (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_comun VARCHAR(100) NOT NULL,
+    tipo_flor VARCHAR(100),
+    dureza_madera INT,  -- 1-10 escala de dureza
+    altura_promedio DECIMAL(5,2),  -- en metros
+    ruta_imagen VARCHAR(255)
+);
+
+-- 5. Insertar algunos datos de ejemplo
+INSERT INTO arbol (nombre_comun, tipo_flor, dureza_madera, altura_promedio, ruta_imagen) VALUES
+('Roble', 'No tiene', 8, 25.00, '/images/roble.jpg'),
+('Manzano', 'Blanca', 3, 6.50, '/images/manzano.jpg'),
+('Pino', 'Conos', 5, 30.00, '/images/pino.jpg'),
+('Cerezo', 'Rosada', 4, 8.00, '/images/cerezo.jpg');
+
+-- 6. Verificar que todo se creó correctamente
+SELECT '=== BASE DE DATOS CREADA SIN TILDE ===' as Mensaje;
+SELECT * FROM arbol;
