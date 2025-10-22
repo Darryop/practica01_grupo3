@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="~{general/fragmentos :: head}"/>
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"/>
+        
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="container my-4">
+            <!-- Encabezado de página -->
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="text-success">
+                        <i class="fas fa-list me-2"></i>Listado de Árboles
+                    </h2>
+                    <p class="text-muted">Gestiona todas las especies de árboles registradas</p>
+                </div>
+                <div class="col-auto">
+                    <a th:href="@{/arboles/nuevo}" class="btn btn-success">
+                        <i class="fas fa-plus me-2"></i>Nuevo Árbol
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tabla de árboles -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre Común</th>
+                                    <th>Tipo de Flor</th>
+                                    <th>Dureza Madera</th>
+                                    <th>Altura (m)</th>
+                                    <th>Imagen</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="arbol : ${arboles}">
+                                    <td th:text="${arbol.id}"></td>
+                                    <td th:text="${arbol.nombreComun}"></td>
+                                    <td th:text="${arbol.tipoFlor}"></td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark" 
+                                              th:text="${arbol.durezaMadera} + '/10'">
+                                        </span>
+                                    </td>
+                                    <td th:text="${arbol.alturaPromedio}"></td>
+                                    <td>
+                                        <img th:if="${arbol.rutaImagen}" 
+                                             th:src="@{${arbol.rutaImagen}}" 
+                                             alt="Imagen árbol" 
+                                             style="width: 50px; height: 50px; object-fit: cover;"
+                                             class="rounded">
+                                        <span th:unless="${arbol.rutaImagen}" class="text-muted">
+                                            Sin imagen
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a th:href="@{/arboles/editar/{id}(id=${arbol.id})}" 
+                                               class="btn btn-outline-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a th:href="@{/arboles/eliminar/{id}(id=${arbol.id})}" 
+                                               class="btn btn-outline-danger"
+                                               onclick="return confirm('¿Está seguro de eliminar este árbol?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Mensaje si no hay árboles -->
+                                <tr th:if="${arboles.empty}">
+                                    <td colspan="7" class="text-center text-muted py-4">
+                                        <i class="fas fa-tree fa-2x mb-2"></i><br>
+                                        No hay árboles registrados.<br>
+                                        <a th:href="@{/arboles/nuevo}" class="btn btn-success btn-sm mt-2">
+                                            Agregar el primer árbol
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"/>
+        <div th:replace="~{general/fragmentos :: mostrarToast}"/>
+    </body>
+</html>

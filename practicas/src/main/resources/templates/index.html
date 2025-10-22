@@ -1,15 +1,43 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="~{general/fragmentos :: head}"/>
     <body>
-        <div>TODO write content</div>
+        <header th:replace="~{general/fragmentos :: header}"/>
+        
+        <!-- CONTENIDO PRINCIPAL DEL INDEX -->
+        <main class="container my-5">
+            <div class="row">
+                <div class="col-md-8 mx-auto text-center">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-5">
+                            <i class="fas fa-tree fa-5x text-success mb-4"></i>
+                            <h1 class="card-title display-4 text-dark mb-4">
+                                Sistema de Gestión de Árboles
+                            </h1>
+                            <p class="card-text lead text-muted mb-4">
+                                Administra y mantén un registro completo de diferentes especies de árboles 
+                                con sus características y fotografías.
+                            </p>
+                            
+                            <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                                <a th:href="@{/arboles}" class="btn btn-success btn-lg px-4 me-md-2">
+                                    <i class="fas fa-list me-2"></i>Gestionar Árboles
+                                </a>
+                                <a th:href="@{/arboles/nuevo}" class="btn btn-outline-success btn-lg px-4">
+                                    <i class="fas fa-plus me-2"></i>Nuevo Árbol
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"/>
+        
+        <!-- Toast para mensajes -->
+        <div th:replace="~{general/fragmentos :: mostrarToast}"/>
     </body>
 </html>
